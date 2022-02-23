@@ -19,3 +19,9 @@ var framework = AnsiConsole.Prompt(
             ));
 
 AnsiConsole.Markup($"Chosen framework was: {framework}\n");
+
+AnsiConsole.Write(
+    new FigletText("Scaffold-demo")
+        .LeftAligned()
+        .Color(Color.DarkOrange3)
+);
