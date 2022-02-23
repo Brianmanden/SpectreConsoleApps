@@ -25,3 +25,32 @@ AnsiConsole.Write(
         .LeftAligned()
         .Color(Color.DarkOrange3)
 );
+
+AnsiConsole.Status()
+    .Start("Generating project...", ctx =>
+    {
+        if (answerReadme)
+	    {
+            AnsiConsole.MarkupLine("LOG: Creating README ...");
+            Thread.Sleep(2500);
+            ctx.Status("Next task");
+            ctx.Spinner(Spinner.Known.Star);
+            ctx.SpinnerStyle(Style.Parse("red"));
+	    }
+
+        if (answerGitIgnore)
+	    {
+            AnsiConsole.MarkupLine("LOG: Creating .gitignore ...");
+            Thread.Sleep(2500);
+            ctx.Status("Next task");
+            ctx.Spinner(Spinner.Known.Smiley);
+            ctx.SpinnerStyle(Style.Parse("green"));
+	    }
+
+        AnsiConsole.MarkupLine($"LOG: Configuring test framework - {framework}\n");
+        ctx.Status("_");
+        ctx.Spinner(Spinner.Known.Star2);
+        ctx.SpinnerStyle(Style.Parse("blue"));
+        Thread.Sleep(2000);
+    }
+);
