@@ -6,6 +6,9 @@
     <RootNamespace>spectre_demo</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <PackAsTool>true</PackAsTool>
+	  <ToolCommandName>spectre-demo</ToolCommandName>
+	  <PackageOutputPath>./nupkg</PackageOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
