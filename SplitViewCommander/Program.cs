@@ -1,81 +1,102 @@
 ﻿using Spectre.Console;
-using System.Xml.Linq;
 
 namespace SplitViewCommander
 {
     internal class Program
     {
-        private static string vertSplit = "";
-
         static void Main(string[] args)
         {
-            #region Grid Test Layout
+            #region TableDemo
 
-            Style headerStyles = new Style(Color.White, Color.DarkSeaGreen4_1);
+            #region Styles
+            Style menuBarStyles = new Style(Color.White, Color.DarkSeaGreen4_1);
+            Color boldCharColor = Color.Orange1;
             Style bodyStyles = new Style(Color.DarkGreen, Color.PaleTurquoise1);
-            Style footerStyles = new Style(Color.Blue, Color.DarkSlateGray3);
-
-            var grid = new Grid();
-
-            // Add columns 
-            grid.AddColumn();
-            grid.AddColumn();
-            grid.AddColumn();
-            grid.AddColumn();
-            grid.AddColumn();
-            grid.AddColumn();
-            grid.AddColumn();
-
-            // Add header row 
-            grid.AddRow(new Markup[]{
-                new Markup("[bold underline grey]F[/]iles", headerStyles).LeftJustified(),
-                new Markup("[bold underline grey]M[/]ark", headerStyles).LeftJustified(),
-                new Markup("Co[bold underline grey]m[/]mands", headerStyles).LeftJustified(),
-                new Markup("C[bold underline grey]o[/]nfiguration", headerStyles).LeftJustified()
-            });
-
-            // Add body row
-            for (int i = 0; i < 5; i++)
-            {
-                grid.AddRow(new Text[]{
-                    new Text("Filename", bodyStyles).RightJustified(),
-                    new Text(".ext", bodyStyles).LeftJustified(),
-                    new Text("Filename", bodyStyles).LeftJustified(),
-                    new Text(".ext", bodyStyles).LeftJustified()
-                });
-            }
-
-            // Add footer row
-            grid.AddRow(new Text[]{
-                new Text("[F3] View" + vertSplit, footerStyles).LeftJustified(),
-                new Text("[F4] Edit" + vertSplit, footerStyles).LeftJustified(),
-                new Text("[F5] Copy" + vertSplit, footerStyles).LeftJustified(),
-                new Text("[F6] Move/Rename" + vertSplit, footerStyles).LeftJustified(),
-                new Text("[F7] Make Folder" + vertSplit, footerStyles).LeftJustified(),
-                new Text("[F8] Delete file/folder" + vertSplit, footerStyles).LeftJustified(),
-                new Text("[F10] Exit SVC", footerStyles).LeftJustified(),
-            });
-
-            //var embedded = new Grid();
-
-            //embedded.AddColumn();
-            //embedded.AddColumn();
-
-            //embedded.AddRow(new Text("Embedded I"), new Text("Embedded II"));
-            //embedded.AddRow(new Text("Embedded III"), new Text("Embedded IV"));
-
-            // Add content row 
-            //grid.AddRow(
-            //    new Text("Row 1").LeftJustified(),
-            //    new Text("Row 2").Centered(),
-            //    embedded
-            //);
-
-            // Write centered cell grid contents to Console
-            AnsiConsole.Write(grid);
+            Style buttonMenuStyles = new Style(Color.Blue, Color.DarkSlateGray3);
             #endregion
 
-            Console.WriteLine(Environment.NewLine);
+            #region MenuBar
+
+
+            var menuBarItems = new Markup[] {
+                new Markup($"[{boldCharColor}]F[/]ile", menuBarStyles).LeftJustified(),
+                new Markup($"[{boldCharColor}]M[/]ark", menuBarStyles).LeftJustified(),
+                new Markup($"[{boldCharColor}]C[/]ommands", menuBarStyles).LeftJustified(),
+            };
+
+            Table menuBar = new Table();
+            menuBar.Border = TableBorder.None;
+            foreach (Markup item in menuBarItems)
+            {
+                menuBar.AddColumn(new TableColumn(item));
+            }
+            #endregion
+
+            #region Files
+            //var files = AnsiConsole.Prompt(
+            //    new MultiSelectionPrompt<string>()
+            //        .NotRequired()
+            //        .AddChoices<string>(
+            //            new[]{
+            //                "file1.ext",
+            //                "file2.ext",
+            //                "file3.ext",
+            //                "file4.ext",
+            //                "file5.ext",
+            //                "file7.ext",
+            //                "file8.ext",
+            //            }
+            //        )                
+            //);
+            #endregion
+
+            #region Body Content
+            Table bodyContent = new Table();
+            bodyContent.Border = TableBorder.None;
+            bodyContent.Expand = true;
+            bodyContent.AddColumn("Drive/Folder 1");
+            bodyContent.AddColumn("Drive/Folder 2");
+            bodyContent.AddRow(new Rule(), new Rule());
+            bodyContent.AddRow("files", "ANOTHERFILE.EXT");
+            bodyContent.AddRow("FILENAME.EXT", "ANOTHERFILE.EXT");
+            bodyContent.AddRow("FILENAME.EXT", "ANOTHERFILE.EXT");
+            bodyContent.AddRow("FILENAME.EXT", "ANOTHERFILE.EXT");
+            #endregion
+
+            #region Footer Button Bar
+            Text[] footerButtonItems = new Text[]{
+                new Text("[F3] View", buttonMenuStyles).LeftJustified(),
+                new Text("[F4] Edit", buttonMenuStyles).LeftJustified(),
+                new Text("[F5] Copy", buttonMenuStyles).LeftJustified(),
+                new Text("[F6] Move/Rename", buttonMenuStyles).LeftJustified(),
+                new Text("[F7] Make Folder", buttonMenuStyles).LeftJustified(),
+                new Text("[F8] Delete file/folder", buttonMenuStyles).LeftJustified(),
+                new Text("[F10] Exit SVC", buttonMenuStyles).LeftJustified(),
+            };
+
+            Table footerMenu = new Table();
+            footerMenu.Border = TableBorder.None;
+            foreach (Text item in footerButtonItems)
+            {
+                footerMenu.AddColumn(new TableColumn(item));
+            };
+            #endregion
+
+            #region Render Main Table
+            Table mainTable = new Table()
+                        .Centered()
+                        .Border(TableBorder.Square)
+                        .Title("Split View Commander", menuBarStyles)
+                        //.AddColumn(new TableColumn(string.Empty))
+                        .AddColumn(new TableColumn(menuBar))
+                        .AddRow(bodyContent)
+                        .AddRow(new Rule())
+                        .AddRow(footerMenu);
+
+            AnsiConsole.Write(mainTable);
+            #endregion
+
+            #endregion
 
             Console.ReadKey();
         }
