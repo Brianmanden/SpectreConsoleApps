@@ -2,9 +2,10 @@
 
 ## My take on a two panel file commander using [Spectre Console](https://spectreconsole.net/)
 
-Work In Progess :)
+### Work In Progess :)
 
-2023-10-04 Some images have been added to the Assets folder for inspiration on which features to implement.
+* 2023-10-10 Refactored main program. Worked on sets of styles (WIP)
+* 2023-10-04 Some images have been added to the Assets folder for inspiration on which features to implement.
 
 ---
 
