@@ -36,3 +36,5 @@
 * Yellow https://mycolor.space/?hex=%23FFFF00&sub=1
 * Black (reverse order ?) https://mycolor.space/?hex=%23000000&sub=1
 * Beige https://www.color-hex.com/color-palette/9777
+* Brown https://mycolor.space/?hex=%23000000&sub=1
+* Purple https://mycolor.space/?hex=%23DD00DD&sub=1
