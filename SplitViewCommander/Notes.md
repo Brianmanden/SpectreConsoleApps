@@ -27,3 +27,12 @@
 
 * Create simple POC Layout using Spectre Console Widgets
 * Learn more about Spectre Console
+
+---
+
+### Styles / Palettes
+
+* Red https://mycolor.space/?hex=%23845EC2&sub=1
+* Yellow https://mycolor.space/?hex=%23FFFF00&sub=1
+* Black (reverse order ?) https://mycolor.space/?hex=%23000000&sub=1
+* Beige https://www.color-hex.com/color-palette/9777
