@@ -1,11 +1,11 @@
 ﻿using Spectre.Console;
 
-namespace Models
+namespace SplitViewCommander
 {
     /// <summary>
     /// Main Class of the Split View Commander project.
     /// </summary>
-    public class SplitViewCommander
+    public class Commander
     {
         /// <summary>
         /// Returns zero based amount of styles defined.
@@ -14,46 +14,46 @@ namespace Models
 
         #region Styles
         public Style[] menuBarStyles = new[]{
+                new Style(Color.DarkSlateGray3, Color.DarkBlue),
                 new Style(Color.DarkSlateGray1, Color.Blue3),
                 new Style(Color.DarkSlateGray2, Color.Blue1),
-                new Style(Color.DarkSlateGray3, Color.DarkBlue),
-                new Style(Color.Green, Color.Yellow),
-                new Style(Color.DarkRed, Color.DarkRed_1),
+                new Style(new Color(255, 255, 0), new Color(0, 197, 132) ),
+                new Style(new Color(163, 207, 205), new Color(103, 115, 129) ),
             };
 
+        // copied
         public Color menuBarBoldCharColor = Color.White;
 
         public Style[] bodyStyles = new[] {
                 new Style(Color.DarkGreen, Color.PaleTurquoise1),
                 new Style(Color.DarkGreen, Color.PaleTurquoise1),
                 new Style(Color.DarkGreen, Color.PaleTurquoise1),
-                new Style(Color.DarkGreen, Color.PaleTurquoise1),
+                new Style(new Color(255, 255, 0), new Color(0, 197, 132) ),
                 new Style(Color.DarkGreen, Color.PaleTurquoise1),
             };
 
         public Style[] buttonMenuStyles = new[] {
+                new Style(Color.DarkSlateGray3, Color.DarkBlue),
                 new Style(Color.DarkSlateGray1, Color.Blue3),
                 new Style(Color.DarkSlateGray2, Color.Blue1),
-                new Style(Color.DarkSlateGray3, Color.DarkBlue),
-                new Style(Color.Green, Color.Yellow),
-                new Style(Color.DarkRed, Color.DarkRed_1),
+                new Style(new Color(255, 255, 0), new Color(0, 197, 132) ),
+                new Style(new Color(163, 207, 205), new Color(103, 115, 129) ),
             };
 
         public Color buttonMenuBoldCharColor = Color.White;
         #endregion
 
-        public SplitViewCommander(){}
-
         /// <summary>
         /// Renders the complete layout of the Split View Commander.
         /// </summary>
-        public void RenderLayout(int styles)
+        //public void RenderLayout(int styles)
+        public void RenderLayout(Theme theme)
         {
             #region MenuBar
             var menuBarItems = new Markup[] {
-                new Markup($"[{menuBarBoldCharColor}]F[/]ile", menuBarStyles[styles]).LeftJustified(),
-                new Markup($"[{menuBarBoldCharColor}]M[/]ark", menuBarStyles[styles]).LeftJustified(),
-                new Markup($"[{menuBarBoldCharColor}]C[/]ommands", menuBarStyles[styles]).LeftJustified(),
+                new Markup($"[{theme.MenuBarShortcutColor}]F[/]ile", theme.MenuBarStyle).LeftJustified(),
+                new Markup($"[{theme.MenuBarShortcutColor}]M[/]ark", theme.MenuBarStyle).LeftJustified(),
+                new Markup($"[{theme.MenuBarShortcutColor}]C[/]ommands", theme.MenuBarStyle).LeftJustified(),
             };
 
             Table menuBar = new Table();
@@ -79,13 +79,13 @@ namespace Models
 
             #region Footer Button Bar
             Markup[] footerButtonItems = new Markup[]{
-                new Markup($"[{buttonMenuBoldCharColor}]F3[/] View", buttonMenuStyles[styles]).LeftJustified(),
-                new Markup($"[{buttonMenuBoldCharColor}]F4[/] Edit", buttonMenuStyles[styles]).LeftJustified(),
-                new Markup($"[{buttonMenuBoldCharColor}]F5[/] Copy", buttonMenuStyles[styles]).LeftJustified(),
-                new Markup($"[{buttonMenuBoldCharColor}]F6[/] Move/Rename", buttonMenuStyles[styles]).LeftJustified(),
-                new Markup($"[{buttonMenuBoldCharColor}]F7[/] Make Folder", buttonMenuStyles[styles]).LeftJustified(),
-                new Markup($"[{buttonMenuBoldCharColor}]F8[/] Delete file/folder", buttonMenuStyles[styles]).LeftJustified(),
-                new Markup($"[{buttonMenuBoldCharColor}]F10[/] Exit SVC", buttonMenuStyles[styles]).LeftJustified(),
+                new Markup($"[{theme.ButtonMenuShortcutColor}]F3[/] View",                  theme.ButtonMenuStyles).LeftJustified(),
+                new Markup($"[{theme.ButtonMenuShortcutColor}]F4[/] Edit",                  theme.ButtonMenuStyles).LeftJustified(),
+                new Markup($"[{theme.ButtonMenuShortcutColor}]F5[/] Copy",                  theme.ButtonMenuStyles).LeftJustified(),
+                new Markup($"[{theme.ButtonMenuShortcutColor}]F6[/] Move/Rename",           theme.ButtonMenuStyles).LeftJustified(),
+                new Markup($"[{theme.ButtonMenuShortcutColor}]F7[/] Make Folder",           theme.ButtonMenuStyles).LeftJustified(),
+                new Markup($"[{theme.ButtonMenuShortcutColor}]F8[/] Delete file/folder",    theme.ButtonMenuStyles).LeftJustified(),
+                new Markup($"[{theme.ButtonMenuShortcutColor}]F10[/] Exit SVC",             theme.ButtonMenuStyles).LeftJustified(),
             };
 
             Table footerMenu = new Table();
@@ -101,7 +101,7 @@ namespace Models
                         .Centered()
                         .Border(TableBorder.Rounded)
                         .Centered()
-                        .Title("Split View Commander", menuBarStyles[styles])
+                        .Title("Split View Commander", theme.MenuBarStyle)
                         .AddColumn(new TableColumn(menuBar))
                         .AddRow(bodyContent)
                         .AddRow(new Rule())

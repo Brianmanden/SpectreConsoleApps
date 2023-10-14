@@ -1,5 +1,5 @@
-﻿using Models;
-using Spectre.Console;
+﻿using Spectre.Console;
+using SplitViewCommander;
 
 internal class Program
 {
@@ -7,17 +7,21 @@ internal class Program
     {
         bool keepLooping = true;
 
-        var svc = new SplitViewCommander();
+        Commander svc = new();
 
         #region TEST Choose Styles
-        int numberOfStyles = svc.Styles;
+
+        Themes themes = new Themes();
+        List<Theme> allThemes = themes.GetThemes();
+
+        int numberOfStyles = themes.GetNumberOfThemes();
+
         string[] styleOptions = new String[numberOfStyles + 1];
         for (int i = 0; i < numberOfStyles; i++)
         {
-            styleOptions[i] = i.ToString();
+            styleOptions[i] = allThemes[i].Name.ToString();
         }
         styleOptions[numberOfStyles] = "Exit";
-
 
         while (keepLooping == true)
         {
@@ -32,11 +36,14 @@ internal class Program
             if (chosenStyle == "Exit")
             {
                 keepLooping = false;
-                AnsiConsole.WriteLine("Ok .. bye bye.");
+                AnsiConsole.WriteLine("OK .. bye bye.");
             }
             else { 
                 AnsiConsole.Clear();
-                svc.RenderLayout(Convert.ToInt32(chosenStyle));
+                Enum.TryParse(chosenStyle, out EnumThemes chosenTheme);
+                Theme chosenTheme2 = themes.GetTheme(chosenTheme);
+                //svc.RenderLayout(Convert.ToInt32(chosenStyle));
+                svc.RenderLayout(chosenTheme2);
             }
         }
 
