@@ -17,6 +17,8 @@
 	* Which menu items ?
     * Add Options
       * Add Change Theme
+* Add (some sort of) logging
+  * Log System and User Actions happening in SVC
 * Two panels (vertical split) with different view modes available
 	* Short view - filename.ext
 	* Long view - filename.ext + various info for each file
