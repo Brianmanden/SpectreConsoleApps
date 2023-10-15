@@ -4,7 +4,9 @@
 
 ### Work In Progess :)
 
-* 2023-10-10 Refactored main program. Worked on sets of styles (WIP)
+* 2023-10-15 Added Key Press detection (WIP)
+* 2023-10-14 Refactored to using Themes
+* 2023-10-10 Refactored main program. Worked on sets of styles
 * 2023-10-04 Some images have been added to the Assets folder for inspiration on which features to implement.
 
 ---
@@ -13,6 +15,8 @@
 
 * Menu in top panel
 	* Which menu items ?
+    * Add Options
+      * Add Change Theme
 * Two panels (vertical split) with different view modes available
 	* Short view - filename.ext
 	* Long view - filename.ext + various info for each file
@@ -25,8 +29,12 @@
 
 ### Tasks
 
-* Create simple POC Layout using Spectre Console Widgets
 * Learn more about Spectre Console
+
+---
+
+### Done
+* Create simple POC Layout using Spectre Console Widgets
 
 ---
 
