@@ -35,6 +35,7 @@
 
 * Reseach on which Design Pattern is best to use for Program State Management
   * ... or any other nifty way of dealing with Program State ;)
+  * Refactor current AppState model accordingly to results of research
 * Learn more about Spectre Console
 
 ---
