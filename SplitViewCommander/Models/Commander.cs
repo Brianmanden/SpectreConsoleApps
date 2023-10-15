@@ -8,42 +8,6 @@ namespace SplitViewCommander
     public class Commander
     {
         /// <summary>
-        /// Returns zero based amount of styles defined.
-        /// </summary>
-        public int Styles => menuBarStyles.Length;
-
-        #region Styles
-        public Style[] menuBarStyles = new[]{
-                new Style(Color.DarkSlateGray3, Color.DarkBlue),
-                new Style(Color.DarkSlateGray1, Color.Blue3),
-                new Style(Color.DarkSlateGray2, Color.Blue1),
-                new Style(new Color(255, 255, 0), new Color(0, 197, 132) ),
-                new Style(new Color(163, 207, 205), new Color(103, 115, 129) ),
-            };
-
-        // copied
-        public Color menuBarBoldCharColor = Color.White;
-
-        public Style[] bodyStyles = new[] {
-                new Style(Color.DarkGreen, Color.PaleTurquoise1),
-                new Style(Color.DarkGreen, Color.PaleTurquoise1),
-                new Style(Color.DarkGreen, Color.PaleTurquoise1),
-                new Style(new Color(255, 255, 0), new Color(0, 197, 132) ),
-                new Style(Color.DarkGreen, Color.PaleTurquoise1),
-            };
-
-        public Style[] buttonMenuStyles = new[] {
-                new Style(Color.DarkSlateGray3, Color.DarkBlue),
-                new Style(Color.DarkSlateGray1, Color.Blue3),
-                new Style(Color.DarkSlateGray2, Color.Blue1),
-                new Style(new Color(255, 255, 0), new Color(0, 197, 132) ),
-                new Style(new Color(163, 207, 205), new Color(103, 115, 129) ),
-            };
-
-        public Color buttonMenuBoldCharColor = Color.White;
-        #endregion
-
-        /// <summary>
         /// Renders the complete layout of the Split View Commander.
         /// </summary>
         //public void RenderLayout(int styles)
@@ -96,7 +60,7 @@ namespace SplitViewCommander
             };
             #endregion
 
-            #region Render Main Table
+            #region Render Main Layout
             Table mainTable = new Table()
                         .Centered()
                         .Border(TableBorder.Rounded)

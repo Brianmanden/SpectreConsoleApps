@@ -7,7 +7,7 @@ namespace SplitViewCommander
     /// </summary>
     public class Themes
     {
-        private List<Theme> AllThemes = new List<Theme>();
+        private List<Theme> _allThemes = new List<Theme>();
 
         public Themes()
         {   
@@ -56,11 +56,11 @@ namespace SplitViewCommander
                 Color.White
             );
 
-            AllThemes.Add(blue1);
-            AllThemes.Add(blue2);
-            AllThemes.Add(blue3);
-            AllThemes.Add(green);
-            AllThemes.Add(gray);
+            _allThemes.Add(blue1);
+            _allThemes.Add(blue2);
+            _allThemes.Add(blue3);
+            _allThemes.Add(green);
+            _allThemes.Add(gray);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace SplitViewCommander
         /// <returns>Theme chosen by index number.</returns>
         public Theme GetTheme(int index)
         {
-            return AllThemes[index];
+            return _allThemes[index];
 
         }
 
@@ -90,7 +90,7 @@ namespace SplitViewCommander
         /// <returns>Theme chosen by Enum Value.</returns>
         public Theme GetTheme(EnumThemes name)
         {
-            return AllThemes.Single(t => t.Name == name);
+            return _allThemes.Single(t => t.Name == name);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace SplitViewCommander
         /// <returns>All Themes</returns>
         public List<Theme> GetThemes()
         {
-            return AllThemes;
+            return _allThemes;
         }
     }
 }
