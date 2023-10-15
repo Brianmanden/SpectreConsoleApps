@@ -1,5 +1,6 @@
 ﻿using Spectre.Console;
 using SplitViewCommander;
+using SplitViewCommander.Models;
 using System.Text;
 
 internal class Program
@@ -9,6 +10,9 @@ internal class Program
         // Ctrl + C does not exit program when set to true.
         Console.TreatControlCAsInput = true;
         AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
+
+        AppState appState = new AppState();
+        appState.ActivePanel = "LEFT";
 
         Commander svc = new();
 
@@ -35,9 +39,12 @@ internal class Program
         );
 
         AnsiConsole.Clear();
+        
         Enum.TryParse(chosenStyle, out EnumThemes chosenTheme);
-        Theme chosenTheme2 = themes.GetTheme(chosenTheme);
-        svc.RenderLayout(chosenTheme2);
+        Theme currentTheme = themes.GetTheme(chosenTheme);
+        appState.CurrentTheme = currentTheme;
+
+        svc.RenderLayout(appState);
 
         #endregion
 
@@ -83,8 +90,22 @@ internal class Program
                 output.Append(ConsoleModifiers.Shift.ToString());
             }
             output.Append(".");
+
+            //TODO REFACTOR
+            if (input.Key == ConsoleKey.Tab)
+            {
+                if (appState.ActivePanel == "LEFT")
+                {
+                    appState.ActivePanel = "RIGHT";
+                }
+                else
+                {
+                    appState.ActivePanel = "LEFT";
+                }
+            }
+
             AnsiConsole.Clear();
-            svc.RenderLayout(chosenTheme2);
+            svc.RenderLayout(appState);
             Console.WriteLine(output.ToString());
 
         } while (input.Key != ConsoleKey.F10);

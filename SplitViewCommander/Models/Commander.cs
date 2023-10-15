@@ -1,4 +1,5 @@
 ﻿using Spectre.Console;
+using SplitViewCommander.Models;
 
 namespace SplitViewCommander
 {
@@ -11,8 +12,10 @@ namespace SplitViewCommander
         /// Renders the complete layout of the Split View Commander.
         /// </summary>
         //public void RenderLayout(int styles)
-        public void RenderLayout(Theme theme)
+        public void RenderLayout(AppState appState)
         {
+            Theme theme = appState.CurrentTheme;
+
             #region MenuBar
             var menuBarItems = new Markup[] {
                 new Markup($"[{theme.MenuBarShortcutColor}]F[/]ile", theme.MenuBarStyle).LeftJustified(),
@@ -32,8 +35,19 @@ namespace SplitViewCommander
             Table bodyContent = new Table();
             bodyContent.Border = TableBorder.None;
             bodyContent.Expand = true;
-            bodyContent.AddColumn("Drive/Folder 1");
-            bodyContent.AddColumn("Drive/Folder 2");
+
+            //TODO REFACTOR
+            if (appState.ActivePanel == "LEFT")
+            {
+                bodyContent.AddColumn("[bold]> Drive/Folder 1[/]");
+                bodyContent.AddColumn("Drive/Folder 2");
+            }
+            else
+            {
+                bodyContent.AddColumn("Drive/Folder 1");
+                bodyContent.AddColumn("[bold]> Drive/Folder 2[/]");
+            }
+
             bodyContent.AddRow(new Rule(), new Rule());
             bodyContent.AddRow("files", "ANOTHERFILE.EXT");
             bodyContent.AddRow("FILENAME.EXT", "ANOTHERFILE.EXT");
