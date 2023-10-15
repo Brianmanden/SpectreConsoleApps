@@ -4,6 +4,7 @@
 
 ### Work In Progess :)
 
+* 2023-10-15 Added Tab between Left / Right Panels
 * 2023-10-15 Added Key Press detection (WIP)
 * 2023-10-14 Refactored to using Themes
 * 2023-10-10 Refactored main program. Worked on sets of styles
