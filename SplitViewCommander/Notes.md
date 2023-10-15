@@ -29,6 +29,8 @@
 
 ### Tasks
 
+* Reseach on which Design Pattern is best to use for Program State Management
+  * ... or any other nifty way of dealing with Program State ;)
 * Learn more about Spectre Console
 
 ---
