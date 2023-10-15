@@ -1,11 +1,14 @@
 ﻿using Spectre.Console;
 using SplitViewCommander;
+using System.Text;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
-        bool keepLooping = true;
+        // Ctrl + C does not exit program when set to true.
+        Console.TreatControlCAsInput = true;
+        AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
 
         Commander svc = new();
 
@@ -23,30 +26,76 @@ internal class Program
         }
         styleOptions[numberOfStyles] = "Exit";
 
-        while (keepLooping == true)
-        {
-            AnsiConsole.WriteLine("Chose a styleset or exit");
-            var chosenStyle = AnsiConsole.Prompt(
-                new SelectionPrompt<string>()
-                    .AddChoices(
-                        styleOptions
-                    )
-            );
+        AnsiConsole.WriteLine("Chose a styleset or exit");
+        var chosenStyle = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .AddChoices(
+                    styleOptions
+                )
+        );
 
-            if (chosenStyle == "Exit")
-            {
-                keepLooping = false;
-                AnsiConsole.WriteLine("OK .. bye bye.");
-            }
-            else { 
-                AnsiConsole.Clear();
-                Enum.TryParse(chosenStyle, out EnumThemes chosenTheme);
-                Theme chosenTheme2 = themes.GetTheme(chosenTheme);
-                //svc.RenderLayout(Convert.ToInt32(chosenStyle));
-                svc.RenderLayout(chosenTheme2);
-            }
-        }
+        AnsiConsole.Clear();
+        Enum.TryParse(chosenStyle, out EnumThemes chosenTheme);
+        Theme chosenTheme2 = themes.GetTheme(chosenTheme);
+        svc.RenderLayout(chosenTheme2);
 
         #endregion
+
+        #region TEST Key Press and Key Presses in Combination
+        ConsoleKeyInfo input;
+        do
+        {
+            input = Console.ReadKey(true);
+
+            StringBuilder output = new StringBuilder(
+                          String.Format("You pressed {0}", input.Key.ToString()));
+            bool modifiers = false;
+
+            if (input.Modifiers.HasFlag(ConsoleModifiers.Alt))
+            {
+                output.Append(", together with " + ConsoleModifiers.Alt.ToString());
+                modifiers = true;
+            }
+            if (input.Modifiers.HasFlag(ConsoleModifiers.Control))
+            {
+                if (modifiers)
+                {
+                    output.Append(" and ");
+                }
+                else
+                {
+                    output.Append(", together with ");
+                    modifiers = true;
+                }
+                output.Append(ConsoleModifiers.Control.ToString());
+            }
+            if (input.Modifiers.HasFlag(ConsoleModifiers.Shift))
+            {
+                if (modifiers)
+                {
+                    output.Append(" and ");
+                }
+                else
+                {
+                    output.Append(", together with ");
+                    modifiers = true;
+                }
+                output.Append(ConsoleModifiers.Shift.ToString());
+            }
+            output.Append(".");
+            AnsiConsole.Clear();
+            svc.RenderLayout(chosenTheme2);
+            Console.WriteLine(output.ToString());
+
+        } while (input.Key != ConsoleKey.F10);
+        #endregion
+    }
+
+    static void OnProcessExit(object sender, EventArgs e)
+    {
+        AnsiConsole.Clear();
+        AnsiConsole.Write( new FigletText("Thank you for using").Centered().Color(Color.Green));
+        AnsiConsole.Write( new FigletText("Split View Commander").Centered().Color(Color.Red));
+        Thread.Sleep(1000);
     }
 }
