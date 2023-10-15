@@ -17,6 +17,8 @@
 	* Which menu items ?
     * Add Options
       * Add Change Theme
+* Add "state" to Program
+  * Not yet decided what state should be / contain (WIP)
 * Add (some sort of) logging
   * Log System and User Actions happening in SVC
 * Two panels (vertical split) with different view modes available
