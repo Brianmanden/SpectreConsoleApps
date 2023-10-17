@@ -21,6 +21,7 @@ namespace SplitViewCommander
                 new Markup($"[{theme.MenuBarShortcutColor}]F[/]ile", theme.MenuBarStyle).LeftJustified(),
                 new Markup($"[{theme.MenuBarShortcutColor}]M[/]ark", theme.MenuBarStyle).LeftJustified(),
                 new Markup($"[{theme.MenuBarShortcutColor}]C[/]ommands", theme.MenuBarStyle).LeftJustified(),
+                new Markup($"[{theme.MenuBarShortcutColor}]O[/]ptions", theme.MenuBarStyle).LeftJustified(),
             };
 
             Table menuBar = new Table();
@@ -39,16 +40,17 @@ namespace SplitViewCommander
             //TODO REFACTOR
             if (appState.ActivePanel == "LEFT")
             {
-                bodyContent.AddColumn("[bold]> Drive/Folder 1[/]");
+                bodyContent.AddColumn("[reverse]Drive/Folder 1[/]");
                 bodyContent.AddColumn("Drive/Folder 2");
             }
             else
             {
                 bodyContent.AddColumn("Drive/Folder 1");
-                bodyContent.AddColumn("[bold]> Drive/Folder 2[/]");
+                bodyContent.AddColumn("[reverse]Drive/Folder 2[/]");
             }
 
             bodyContent.AddRow(new Rule(), new Rule());
+            bodyContent.AddRow("..", "..");
             bodyContent.AddRow("files", "ANOTHERFILE.EXT");
             bodyContent.AddRow("FILENAME.EXT", "ANOTHERFILE.EXT");
             bodyContent.AddRow("FILENAME.EXT", "ANOTHERFILE.EXT");
